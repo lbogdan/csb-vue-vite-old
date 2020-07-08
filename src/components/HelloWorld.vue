@@ -1,19 +1,37 @@
 <template>
-  <h1>{{ msg }}</h1>
-  <button @click="count++">count is: {{ count }}</button>
-  <p>Edit <code>components/HelloWorld.vue</code> to test hot module replacement.</p>
+  <div>
+    <h1>{{ msg }}</h1>
+    <h1>{{ reversedMessage }}</h1>
+    <button @click="count++">count is: {{ count }}</button>
+    <button @click="count--">count is: {{ count }}</button>
+  </div>
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
+import { computed, defineComponent, reactive } from "vue";
+
+export default defineComponent({
   props: {
-    msg: String
-  },
-  data() {
-    return {
-      count: 0
+    msg: {
+      type: String,
+      default: "hello"
     }
+  },
+  setup(props) {
+    const reversedMessage = computed(() => {
+      return props.msg
+        .split("")
+        .reverse()
+        .join("");
+    });
+
+    const count = reactive(0);
+
+    return {
+      ...props,
+      count,
+      reversedMessage
+    };
   }
-}
+});
 </script>
