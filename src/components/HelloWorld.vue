@@ -25,11 +25,13 @@ export default defineComponent({
         .join("");
     });
 
-    const count = reactive(0);
+    const state = reactive({
+      count: 0
+    });
 
     return {
       ...props,
-      count,
+      count: state.count,
       reversedMessage
     };
   }
